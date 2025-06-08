@@ -12,10 +12,15 @@ class Post:
         self.author = author
 
 
+
 posts_list = [
-    Post("Bober", "Browse the libraries of Megascans and MetaHumans content in a quick and artist-friendly way through Bridge.", "author"),
-    Post("Space X", "Fire up an all-new Bridge tab right inside of Unreal Engine 5 and drop optimized content directly into your project.", "author"),
-    Post("Nasa", "Seamlessly export to your favorite 3D application or game engine with one click. Save time and have fun creating.", "author")
+    Post("Bober", "Browse the libraries of Megascans and MetaHumans content in a quick and artist-friendly way through Bridge.", ""),
+    Post("Space X", "Fire up an all-new Bridge tab right inside of Unreal Engine 5 and drop optimized content directly into your project.", ""),
+    Post("NASA", "Seamlessly export to your favorite 3D application or game engine with one click. Save time and have fun creating.", ""),
+    Post("Blender", "Blender is the free and open source 3D creation suite.", ""),
+    Post("AI Future", "Artificial Intelligence is transforming the world. Here’s what’s coming.", ""),
+    Post("Python", "Python is a versatile and beginner-friendly programming language.", ""),
+    Post("Flask Magic", "Flask is a lightweight WSGI web application framework. It's easy to get started with!", ""),
 ]
 
 
