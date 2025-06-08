@@ -47,9 +47,15 @@ def create():
     return render_template("create.html")
 
 
+# авториз і регістр
+@app.route("/reg")
+def reg():
+    return render_template("reg.html")
 
 
-
+@app.route("/auth")
+def auth():
+    return render_template("auth.html")
 
 
 
