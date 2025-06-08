@@ -5,30 +5,41 @@ app = Flask(__name__)
 
 
 
-class Posts():
-    def __init__(self, title, description):
+class Post:
+    def __init__(self, title, description, author):
         self.title = title
         self.description = description
+        self.author = author
 
 
 posts_list = [
-    Posts("Bober", "Browse the libraries of Megascans and MetaHumans content in a quick and artist-friendly way through Bridge."),
-    Posts("Space X", "Fire up an all-new Bridge tab right inside of Unreal Engine 5 and drop optimized content directly into your project."),
-    Posts("Nasa", "Seamlessly export to your favorite 3D application or game engine with one click. Save time and have fun creating.")
+    Post("Bober", "Browse the libraries of Megascans and MetaHumans content in a quick and artist-friendly way through Bridge.", "author"),
+    Post("Space X", "Fire up an all-new Bridge tab right inside of Unreal Engine 5 and drop optimized content directly into your project.", "author"),
+    Post("Nasa", "Seamlessly export to your favorite 3D application or game engine with one click. Save time and have fun creating.", "author")
 ]
 
 
 
-app.route("/")
+@app.route("/")
 def home():
 
-    render_template("index.html", posts=posts_list )
+    return render_template("index.html", posts=posts_list )
 
 
 
 
 
-
+@app.route("/create", methods=["GET", "POST"])
+def create():
+    if request.method == "POST":
+        title = request.form.get("title")
+        description = request.form.get("description")
+        author = request.form.get("author")
+        if title and description and author:
+            new_post = Post(title, description, author)
+            posts_list.append(new_post)
+            return redirect(url_for("home"))
+    return render_template("create.html")
 
 
 

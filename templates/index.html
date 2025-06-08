@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    
+    {%for post in posts%}
+        {{post.title}}<br>
+        {{post.description}}<br>
+        {{post.author}}<br>
+    {%endfor%}
 </body>
 </html>
