@@ -59,12 +59,18 @@ def reg():
 def auth():
     user_name = request.args.get("name")
     user_pass = request.args.get("password")
+    user_status = request.args.get("user_status", None)
+
+    if user_status == "active":
+        return render_template("account.html")
+
 
     if user_name and user_pass:
         if user_name == request.cookies.get("user_name") and user_pass == request.cookies.get("password"):
             return render_template("acount.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
         else:
-            return redirect(url_for("reg", msg="This user is not exist"))
+            return redirect(url_for("reg", msg="This user is not exist. You need to register!"))
+        
     return render_template("auth.html")
 
 

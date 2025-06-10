@@ -55,6 +55,13 @@
 </head>
 <body>
 
+    {%if user%}
+        <form action="/auth">
+            <input type="hidden" name="user_status" value="active">
+            <button type="submit">Account</button>
+        </form>
+    {%endif%}
+
     <form action="/auth">
         <button type="submit">LogIn</button>
     </form>
@@ -63,7 +70,7 @@
         <h1>Список постів</h1>
 
         <form action="{{ url_for('create') }}" method="get" style="margin: 0;">
-            <button type="submit" class="real-button">➕ Новий пост</button>
+            <button type="submit" class="real-button"> Новий пост</button>
         </form>
     </div>
 
