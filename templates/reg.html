@@ -6,6 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form action="/">
+        <button type="submit">Home</button>
+    </form>
+
+    <form action="/auth">
+        <button type="submit">LogIn</button>
+    </form>
+
+
+    <form action="/reg" method="post">
+        <input type="text" name="name" placeholder="Put your name!">
+        <input type="text" name="password" placeholder="Put your password!">
+        <button type="submit" >Registrate!</button>
+    </form>
+
+    {%if msg%}
+        {{msg}}
+    {%endif%}
 </body>
 </html>

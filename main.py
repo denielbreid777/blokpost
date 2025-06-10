@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 
 app = Flask(__name__)
 
@@ -24,11 +24,21 @@ posts_list = [
 ]
 
 
+# class User():
+#     def __init__(self, name, password):
+#         self.name = name
+#         self.password = password
+
+# users = []
+
+
+
 
 @app.route("/")
 def home():
+    msg = request.args.get("msg")
 
-    return render_template("index.html", posts=posts_list )
+    return render_template("index.html", posts=posts_list, msg=msg, user=request.cookies.get("user_name", None))
 
 
 
@@ -48,14 +58,47 @@ def create():
 
 
 # авториз і регістр
-@app.route("/reg")
+# Через КЛАС. Напевне не працюватиме, бо буде список юзерів не там де треба чи щось.
+
+# @app.route("/reg")
+# def reg():
+#     new_user_name = request.args.get("name")
+#     new_user_pass = request.args.get("password")
+
+#     if new_user_name and new_user_pass:
+#         for user in users:
+#             if user.name == new_user_name and user.password == new_user_pass:
+#                 return render_template("reg.html", msg="You're already registered. Try to login!")
+#             else:
+#                 users.append(User(new_user_name, new_user_pass))
+
+#     return render_template("reg.html")
+
+
+@app.route("/reg", methods=["GET", "POST"])
 def reg():
-    return render_template("reg.html")
+    if request.method == "GET":
+        return render_template("reg.html", msg=" Welcome! Please register below.")
 
 
-@app.route("/auth")
-def auth():
-    return render_template("auth.html")
+    new_user_name = request.form.get("name")
+    new_user_pass = request.form.get("password")
+
+    saved_user_name = request.cookies.get("user_name")
+    saved_user_password = request.cookies.get("password")
+
+    if new_user_name and new_user_pass:
+            if new_user_name == saved_user_name and new_user_pass == saved_user_password:
+                return render_template("reg.html", msg="You're already registered. Try to login!")
+            
+            else:
+                response = make_response(redirect(url_for("home", msg="You are sucsessfully registered")))
+                response.set_cookie("user_name", new_user_name)
+                response.set_cookie("password", new_user_pass)
+                return response
+            
+
+
 
 
 

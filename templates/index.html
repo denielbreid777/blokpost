@@ -55,11 +55,22 @@
 </head>
 <body>
 
+    {%if not user%}
+        <form action="/reg">
+            <button type="submit">Register</button>
+        </form>
+    {%endif%}
+
+    {%if msg%}
+        {{msg}}
+    {%endif%}
+
+
     <div class="header">
         <h1>Список постів</h1>
 
         <form action="{{ url_for('create') }}" method="get" style="margin: 0;">
-            <button type="submit" class="real-button">➕ Новий пост</button>
+            <button type="submit" class="real-button"> Новий пост</button>
         </form>
     </div>
 
