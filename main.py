@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 
 app = Flask(__name__)
 
@@ -50,11 +50,21 @@ def create():
 # авториз і регістр
 @app.route("/reg")
 def reg():
+    msg = request.args.get("msg")
+
     return render_template("reg.html")
 
 
 @app.route("/auth")
 def auth():
+    user_name = request.args.get("name")
+    user_pass = request.args.get("password")
+
+    if user_name and user_pass:
+        if user_name == request.cookies.get("user_name") and user_pass == request.cookies.get("password"):
+            return render_template("acount.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
+        else:
+            return redirect(url_for("reg", msg="This user is not exist"))
     return render_template("auth.html")
 
 
