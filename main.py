@@ -77,8 +77,9 @@ def create():
 
 @app.route("/reg", methods=["GET", "POST"])
 def reg():
+    msg = None
     if request.method == "GET":
-        return render_template("reg.html", msg=" Welcome! Please register below.")
+        return render_template("reg.html", msg=msg)
 
 
     new_user_name = request.form.get("name")
