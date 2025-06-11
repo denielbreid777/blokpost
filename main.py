@@ -62,7 +62,7 @@ def auth():
     user_status = request.args.get("user_status", None)
 
     if user_status == "active":
-        return render_template("account.html")
+        return render_template("account.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
 
 
     if user_name and user_pass:
