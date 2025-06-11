@@ -75,11 +75,9 @@ def create():
 #     return render_template("reg.html")
 
 
-@app.route("/reg", methods=["GET", "POST"])
+@app.route("/reg", methods=["POST"])
 def reg():
     msg = None
-    if request.method == "GET":
-        return render_template("reg.html", msg=msg)
 
 
     new_user_name = request.form.get("name")
@@ -97,6 +95,10 @@ def reg():
                 response.set_cookie("user_name", new_user_name)
                 response.set_cookie("password", new_user_pass)
                 return response
+
+    return render_template("reg.html", msg=msg)
+
+
             
 
 
