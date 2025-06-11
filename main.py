@@ -77,7 +77,7 @@ def create():
 
 @app.route("/reg", methods=["POST"])
 def reg():
-    msg = None
+    msg = request.args.get("msg", None)
 
 
     new_user_name = request.form.get("name")
