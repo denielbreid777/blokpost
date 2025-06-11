@@ -10,7 +10,7 @@ class Post:
         self.title = title
         self.description = description
         self.author = author
-
+        self.likes = 0
 
 
 posts_list = [
@@ -48,7 +48,17 @@ def create():
     return render_template("create.html")
 
 
-# авториз і регістр
+
+@app.route("/like", methods=["POST"])
+def like():
+    like = int(request.form.get("like"))
+    post_name = request.form.get("name")
+
+    for post in posts_list:
+        if post.title == post_name:
+            post.likes += like
+    return redirect(url_for("home"))
+
 
 
 @app.route("/auth")
@@ -93,7 +103,6 @@ def reg():
                 return response
 
     return render_template("reg.html", msg=msg)
-
 
             
 

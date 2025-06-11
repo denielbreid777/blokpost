@@ -90,6 +90,12 @@
             <div class="post">
                 <h2>{{ post.title }}</h2>
                 <p>{{ post.description }}</p>
+                <p>{{ post.likes }}</p>
+                <form action="/like" method="post">
+                    <input type="hidden" name="like" value="1">
+                    <input type="hidden" name="name" value="{{post.title}}">
+                    <button type="submit">Like</button>
+                </form>
             </div>
         {% else %}
             <p>Немає постів для відображення.</p>
