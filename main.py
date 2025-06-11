@@ -10,7 +10,7 @@ class Post:
         self.title = title
         self.description = description
         self.author = author
-
+        self.likes = 0
 
 
 posts_list = [
