@@ -24,15 +24,6 @@ posts_list = [
 ]
 
 
-# class User():
-#     def __init__(self, name, password):
-#         self.name = name
-#         self.password = password
-
-# users = []
-
-
-
 
 @app.route("/")
 def home():
@@ -58,21 +49,26 @@ def create():
 
 
 # авториз і регістр
-# Через КЛАС. Напевне не працюватиме, бо буде список юзерів не там де треба чи щось.
 
-# @app.route("/reg")
-# def reg():
-#     new_user_name = request.args.get("name")
-#     new_user_pass = request.args.get("password")
 
-#     if new_user_name and new_user_pass:
-#         for user in users:
-#             if user.name == new_user_name and user.password == new_user_pass:
-#                 return render_template("reg.html", msg="You're already registered. Try to login!")
-#             else:
-#                 users.append(User(new_user_name, new_user_pass))
+@app.route("/auth")
+def auth():
+    user_name = request.args.get("name")
+    user_pass = request.args.get("password")
+    user_status = request.args.get("user_status", None)
 
-#     return render_template("reg.html")
+    if user_status == "active":
+        return render_template("account.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
+
+
+    if user_name and user_pass:
+        if user_name == request.cookies.get("user_name") and user_pass == request.cookies.get("password"):
+            return render_template("acount.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
+        else:
+            return redirect(url_for("reg", msg="This user is not exist. You need to register!"))
+        
+    return render_template("auth.html")
+
 
 
 @app.route("/reg", methods=["POST"])
@@ -100,11 +96,6 @@ def reg():
 
 
             
-
-
-
-
-
 
 
 
