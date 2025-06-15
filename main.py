@@ -56,7 +56,8 @@ def like():
 
     for post in posts_list:
         if post.title == post_name:
-            post.likes += like
+            if post.likes != 1:
+                post.likes += like
     return redirect(url_for("home"))
 
 
