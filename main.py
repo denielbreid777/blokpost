@@ -6,21 +6,21 @@ app = Flask(__name__)
 
 
 class Post:
-    def __init__(self, title, description, author):
+    def __init__(self, title, description, author, comment=[]):
         self.title = title
         self.description = description
         self.author = author
         self.likes = 0
-
+        self.comment = comment
 
 posts_list = [
-    Post("Bober", "Browse the libraries of Megascans and MetaHumans content in a quick and artist-friendly way through Bridge.", ""),
-    Post("Space X", "Fire up an all-new Bridge tab right inside of Unreal Engine 5 and drop optimized content directly into your project.", ""),
-    Post("NASA", "Seamlessly export to your favorite 3D application or game engine with one click. Save time and have fun creating.", ""),
-    Post("Blender", "Blender is the free and open source 3D creation suite.", ""),
-    Post("AI Future", "Artificial Intelligence is transforming the world. Here’s what’s coming.", ""),
-    Post("Python", "Python is a versatile and beginner-friendly programming language.", ""),
-    Post("Flask Magic", "Flask is a lightweight WSGI web application framework. It's easy to get started with!", ""),
+    Post("Bober", "Browse the libraries of Megascans and MetaHumans content in a quick and artist-friendly way through Bridge.", "", []),
+    Post("Space X", "Fire up an all-new Bridge tab right inside of Unreal Engine 5 and drop optimized content directly into your project.", "", []),
+    Post("NASA", "Seamlessly export to your favorite 3D application or game engine with one click. Save time and have fun creating.", "", []),
+    Post("Blender", "Blender is the free and open source 3D creation suite.", "", []),
+    Post("AI Future", "Artificial Intelligence is transforming the world. Here’s what’s coming.", "", []),
+    Post("Python", "Python is a versatile and beginner-friendly programming language.", "", []),
+    Post("Flask Magic", "Flask is a lightweight WSGI web application framework. It's easy to get started with!", "", []),
 ]
 
 
@@ -68,7 +68,7 @@ def auth():
     user_status = request.args.get("user_status", None)
 
     if user_status == "active":
-        return render_template("account.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
+        return render_template("acount.html", name=request.cookies.get("user_name"), password=request.cookies.get("password"))
 
 
     if user_name and user_pass:
@@ -81,9 +81,13 @@ def auth():
 
 
 
-@app.route("/reg", methods=["POST"])
+
+@app.route("/reg", methods=["GET","POST"])
 def reg():
     msg = request.args.get("msg", None)
+
+    if request.method == "GET":
+        return render_template("reg.html", msg=msg)
 
 
     new_user_name = request.form.get("name")
@@ -102,10 +106,17 @@ def reg():
                 response.set_cookie("password", new_user_pass)
                 return response
 
-    return render_template("reg.html", msg=msg)
 
-            
+                
+@app.route("/comment")
+def comment():
+    title = request.args.get("title")
+    comment = request.args.get("comment")
 
+    for post in posts_list:
+        if post.title == title:
+            post.comment.append(comment)
+    return redirect(url_for("home"))
 
 
 
