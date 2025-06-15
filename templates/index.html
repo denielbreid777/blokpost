@@ -73,9 +73,17 @@
         </form>
     {%endif%}
 
-    <form action="/auth">
-        <button type="submit">LogIn</button>
-    </form>
+    {%if user%}
+        <form action="/out">
+            <button type="submit">LogOut</button>
+        </form>
+    {%endif%}
+
+    {%if not user%}
+        <form action="/auth">
+            <button type="submit">LogIn</button>
+        </form>
+    {%endif%}
 
     <div class="header">
         <h1>Список постів</h1>

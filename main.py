@@ -120,6 +120,21 @@ def comment():
 
 
 
+@app.route("/out")
+def out():
+    response = make_response(redirect(url_for("home")))
+    response.delete_cookie("user_name")
+    response.delete_cookie("password")
+    return response
+
+    
+
+
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
